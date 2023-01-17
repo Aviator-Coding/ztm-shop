@@ -17,13 +17,11 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [errorMessage, setErrorMessage] = useState("");
   const { displayName, email, password, confirmPassword } = formFields;
 
   console.log(formFields);
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === password || name === confirmPassword) setErrorMessage("");
     setFormFields({ ...formFields, [name]: value });
   };
 
@@ -35,7 +33,7 @@ const SignUpForm = () => {
     event.preventDefault();
     const { email, password, confirmPassword } = formFields;
     if (password !== confirmPassword) {
-      setErrorMessage("The Password does not match");
+      alert("The Password does not match");
     }
 
     try {
