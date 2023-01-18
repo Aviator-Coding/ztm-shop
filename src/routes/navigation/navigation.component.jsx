@@ -11,8 +11,7 @@ import { CartContext } from "../../contexts/cart.context";
 const Navigation = () => {
   //exposes the setCurrentUser Function from our Context Provider
   const { currentUser } = useContext(UserContext);
-  const { currentCart, setCurrentCart } = useContext(CartContext);
-  const { isVisible } = currentCart;
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <>
@@ -35,7 +34,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        {isVisible && <CartDropdown />}
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>
