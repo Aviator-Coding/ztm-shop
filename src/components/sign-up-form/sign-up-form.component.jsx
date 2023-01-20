@@ -6,7 +6,7 @@ import {
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-import "./sign-up-form.styles.scss";
+import { SignUpContainer } from "./sign-up-form.styles";
 
 const defaultFormFields = {
   displayName: "",
@@ -18,8 +18,6 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-
-  console.log(formFields);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -47,7 +45,7 @@ const SignUpForm = () => {
     }
   };
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Don't have an Account</h2>
       <span>Sign Up with your Email and Password</span>
       <form onSubmit={submitForm}>
@@ -85,7 +83,7 @@ const SignUpForm = () => {
         />
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

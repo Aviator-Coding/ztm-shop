@@ -11,7 +11,7 @@ const App = () => {
       <Route path="/" element={<Navigation />}>
         {/* This will render the Defaults if no Route has been given besides / */}
         <Route index element={<Home />} />
-        <Route path="shop" element={<Shop />} />
+        <Route path="shop/*" element={<Shop />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="auth" element={<Authentication />} />
       </Route>
