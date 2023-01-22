@@ -20,7 +20,9 @@ const middleWares = [process.env.NODE_ENV === "development" && logger].filter(Bo
 // Redux Dev Tools
 
 const composedEnhancer =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  typeof window === "object" &&
+  process.env.NODE_ENV === "development" &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
