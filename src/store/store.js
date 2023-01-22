@@ -5,20 +5,22 @@ import { rootReducer } from "./root-reducer";
 import logger from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Middleware run before it hits the reducer
-const middleWares = [process.env.NODE_ENV === "development" && logger].filter(Boolean);
+const middleWares = [process.env.NODE_ENV === "development" && logger, thunk].filter(
+  Boolean
+);
 
 // Redux Dev Tools
-
 const composedEnhancer =
   typeof window === "object" &&
   process.env.NODE_ENV === "development" &&
