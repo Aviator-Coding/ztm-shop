@@ -18,10 +18,13 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [process.env.NODE_ENV === "development" && logger].filter(Boolean);
 
 // Redux Dev Tools
+
 const composedEnhancer =
-  process.env.NODE_ENV !== "production" &&
-  window &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
 
 // Compose is a regular call enhanced is with dev tools
 const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares));
