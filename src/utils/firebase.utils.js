@@ -83,7 +83,7 @@ export const createUserDocumentFromAuth = async (
         ...additionalInformation,
       });
     } catch (error) {
-      console.log("error Creating user");
+      console.error("error Creating user");
     }
   }
 

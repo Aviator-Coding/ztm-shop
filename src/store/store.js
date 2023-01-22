@@ -3,24 +3,31 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import { rootReducer } from "./root-reducer";
 import logger from "redux-logger";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-// Example of a custom middleware for Redux
-// const loggerMiddleware = (store) => (next) => (action) => {
-//   if (!action.type) {
-//     return next(action);
-//   }
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["user"],
+};
 
-//   console.log("type", action.type);
-//   console.log("payload", action.payload);
-//   console.log("currentState", store.getState());
-
-//   next(action);
-//   console.log("nextState", store.getState());
-// };
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Middleware run before it hits the reducer
-const middleWares = [logger];
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const middleWares = [process.env.NODE_ENV === "development" && logger].filter(Boolean);
+
+// Redux Dev Tools
+const composedEnhancer =
+  process.env.NODE_ENV !== "production" &&
+  window &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+
+// Compose is a regular call enhanced is with dev tools
+const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares));
 
 // root-reducer
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+export const store =
+  createStore(persistedReducer, undefined, composedEnhancers) || compose;
+
+export const persistor = persistStore(store);
