@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import CategoriesPreview from "../categories-preview/categories-preview.component";
 import Category from "../category/category.component";
-import { fetchCategoriesAsync } from "../../store/category/category.action";
+import { fetchCategoriesStart } from "../../store/category/category.action";
 
 const Shop = () => {
   // Passes the Action the the root-reducer
@@ -11,7 +11,7 @@ const Shop = () => {
 
   // Get the Categories
   useEffect(() => {
-    dispatch(fetchCategoriesAsync());
+    dispatch(fetchCategoriesStart());
   }, []);
 
   return (
